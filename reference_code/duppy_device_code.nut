@@ -13,7 +13,6 @@ const versionString = "MMA8452Q Sample v00.01.2013-10-29a"
 
 //const accelChangeThresh = 500 // change in accel per sample to count as movement.  Units of milliGs
 pollMMA8452QBusy <- false // guard against interrupt handler collisions FIXME: Is this necessary?  Debugging why I get no EA_BIT set error sometimes
-//pollMMA8452QBusy <- true // hhh guard against interrupt handler collisions FIXME: Is this necessary?  Debugging why I get no EA_BIT set error sometimes
 
 ///////////////////////////////////////////////
 // constants for MMA8452Q i2c registers
@@ -82,7 +81,7 @@ const CTRL_REG4        = 0x2D
 const CTRL_REG5        = 0x2E
 
 // helper variables for MMA8452Q. These are not const because they may have reason to change dynamically.
-i2cRetryPeriod <- 1.0 // seconds to wait before retrying a failed i2c operation //hhh
+i2cRetryPeriod <- 1.0 // seconds to wait before retrying a failed i2c operation
 maxG <- FS_4G // what scale to get G readings
 i2c <- hardware.i2c89 // now can use i2c.read()
 
@@ -100,7 +99,6 @@ function readBit(val, bitPosition) { return readBitField(val, bitPosition, 1) }
 
 function writeBitField(val, bitPosition, numBits, newVal) { // works for 8bit registers
 // newVal is not bounds checked
-    //server.log("writeBitField = val: "+writeBitField+"/ bitPosition: "+bitPosition+" / numBits: "+numBits+" / newVal: "+newVal)
     return (val & (((0x00FF >> (8 - numBits)) << bitPosition) ^ 0x00FF)) | (newVal << bitPosition)
 }
 
@@ -114,7 +112,6 @@ function readReg(addressToRead) {
 // Writes a single byte (dataToWrite) into addressToWrite.  Returns error code from i2c.write
 // Continue retry until success.  Caller does not need to check error code
 function writeReg(addressToWrite, dataToWrite) {
-    //server.log("writeReg = addressToWrite :"+addressToWrite+" / dataToWrite :"+dataToWrite);
     local err = null
     while (err == null) {
         err = i2c.write(MMA8452Q_ADDR << 1, format("%c%c", addressToWrite, dataToWrite))
@@ -147,18 +144,14 @@ function readSequentialRegs(addressToRead, numBytes) {
 // now functions unique to MMA8452Q
 
 function readAccelData() {
-    //server.log("readAccelData");
     local rawData = null // x/y/z accel register data stored here, 3 bytes
-    local axisVal = null
     local accelData = array(3)
-    local side = null
     local i
     local val
     
     rawData = readSequentialRegs(OUT_X_MSB, 3)  // Read the three raw data registers into data array
     foreach (i, val in rawData) {
-        axisVal      = math.floor(1000.0 * ((val < 128 ? val : val - 256) / ((64 >> maxG) + 0.0)))
-        accelData[i] = axisVal
+        accelData[i] = math.floor(1000.0 * ((val < 128 ? val : val - 256) / ((64 >> maxG) + 0.0)))
             // HACK: in above calc maxG just happens to be (log2(full_scale) - 1)  see: const for FS_2G, FS_4G, FS_8G 
         //convert to signed integer milliGs
     }
@@ -196,7 +189,6 @@ function MMA8452QReset() {
 }
 
 function MMA8452QSetActive(mode) {
-    server.log("MMA8452Q is set to active.")
     // Sets the MMA8452Q active mode.
     // 0 == STANDBY for changing registers
     // 1 == ACTIVE for outputting data
@@ -287,62 +279,23 @@ function initMMA8452Q() {
 // now application specific functions
 
 function pollMMA8452Q() {
-    //server.log("pollMMA8452Q invoked.");
     local xyz
-    local x
-    local y
-    local z
-    local prevX
-    local prevY 
-    local prevZ
-    local xDiff
-    local yDiff
-    local zDiff
     local reg
-    local prevPrevSide
-    local prevSide
-    local side 
 
     while (pollMMA8452QBusy) {
-        //server.log("pollMMA8452QBusy collision")
-        //server.log("hello")
+        server.log("pollMMA8452QBusy collision")
         // wait herer unitl other instance of int handler is done
         // FIXME:  I never see this error, probably not neessary, just being paranoid.
     }
     pollMMA8452QBusy = true // mark as busy
     if (hardware.pin1.read() == 1) { // only react to low to high edge
-       //server.log("pin1 is 1")
 //FIXME:  do we need to check status for data ready in all xyz?//log(format("STATUS == 0x%02x", readReg(STATUS)), 80)
         reg = readReg(INT_SOURCE)
-        server.log("reg :"+reg)
-        //while (reg != 0x00)//hhh 
-        while (1 == 1) {
+        while (reg != 0x00) {
 //            server.log(format("INT_SOURCE == 0x%02x", reg))
             if (readBit(reg, SRC_DRDY_BIT) == 0x1) {
                 xyz = readAccelData() // this clears the SRC_DRDY_BIT
-                
-                prevSide = side
-                //server.log("previsou side: "+ prevSide)
-                 
-                if (xyz[0] == -1000) {
-                    side = 4 //server.log("side 4")
-                } else if (xyz[0] > 960) {
-                    side = 3 //server.log("side 3")
-                } else if (xyz[1] == -1000) {
-                    side = 5 //server.log("side 5")
-                } else if (xyz[1] > 960) {
-                    side = 2 //server.log("side 2")
-                } else if (xyz[2] == -1000) {
-                    side = 1 //server.log("side 1")
-                } else if (xyz[2] > 960) {
-                    side = 6 //server.log("side 6")
-                }
-                if (side != prevSide) {
-                  server.log("side: "+ side)
-                  
-                }
-                
-                
+                server.log(format("%4d %4d %4d", xyz[0], xyz[1], xyz[2]))
                 // do something with xyz data here
             }
             if (readBit(reg, SRC_FF_MT_BIT) == 0x1) {
@@ -357,17 +310,15 @@ function pollMMA8452Q() {
             reg = readReg(INT_SOURCE)
         } // while (reg != 0x00)
     } else {
-        server.log("INT2 LOW")
+//        server.log("INT2 LOW")
     }
     pollMMA8452QBusy = false // clear so other inst of int handler can run
-    //server.log("pollMMA8452Q set to false.");
 } // pollMMA8452Q
 
 ////////////////////////////////////////////////////////
 // first code starts here
 
-//imp.setpowersave(true) // start in low power mode.
-imp.setpowersave(false) // start in low power mode. hhh doesn't seem to do anything
+imp.setpowersave(true) // start in low power mode.
     // Optimized for case where wakeup was caused by periodic timer, not user activity
 
 // Register with the server
@@ -375,8 +326,7 @@ imp.setpowersave(false) // start in low power mode. hhh doesn't seem to do anyth
 // no in and out []s anymore, using Agent messages
 
 // Send status to know we are alive
-//server.log("BOOTING  " + versionString + " " + hardware.getimpid() + "/" + imp.getmacaddress())
-server.log("BOOTING  " + versionString + " " + hardware.getdeviceid() + "/" + imp.net.info())
+server.log("BOOTING  " + versionString + " " + hardware.getimpeeid() + "/" + imp.getmacaddress())
 server.log("imp software version : " + imp.getsoftwareversion())
 
 // BUGBUG: below needed until newer firmware!?  See http://forums.electricimp.com/discussion/comment/4875#Comment_2714
