@@ -10,6 +10,7 @@
 /////////////////////////////////////////////////
 // global constants and variables
 const versionString = "MMA8452Q Sample v00.01.2013-10-29a"
+ID <- hardware.getdeviceid(); 
 
 //const accelChangeThresh = 500 // change in accel per sample to count as movement.  Units of milliGs
 pollMMA8452QBusy <- false // guard against interrupt handler collisions FIXME: Is this necessary?  Debugging why I get no EA_BIT set error sometimes
@@ -300,8 +301,14 @@ function pollMMA8452Q() {
     local zDiff
     local reg
     local prevPrevSide
-    local prevSide
+    local prevSide;
     local side 
+// added by anton
+    local datapoint    
+    local numberSinceChange = 0;
+    local changeCounter = 0;
+
+//  end added by anton
 
     while (pollMMA8452QBusy) {
         //server.log("pollMMA8452QBusy collision")
@@ -318,6 +325,9 @@ function pollMMA8452Q() {
         //while (reg != 0x00)//hhh 
         while (1 == 1) {
 //            server.log(format("INT_SOURCE == 0x%02x", reg))
+
+            
+            
             if (readBit(reg, SRC_DRDY_BIT) == 0x1) {
                 xyz = readAccelData() // this clears the SRC_DRDY_BIT
                 
@@ -329,16 +339,65 @@ function pollMMA8452Q() {
                 } else if (xyz[0] > 960) {
                     side = 3 //server.log("side 3")
                 } else if (xyz[1] == -1000) {
-                    side = 5 //server.log("side 5")
+                    side = 1 //server.log("side 5")
                 } else if (xyz[1] > 960) {
                     side = 2 //server.log("side 2")
                 } else if (xyz[2] == -1000) {
-                    side = 1 //server.log("side 1")
+                    side = 5 //server.log("side 1")
                 } else if (xyz[2] > 960) {
                     side = 6 //server.log("side 6")
+                } /*else {
+                  side = 0
+                  //server.log(format("%4d %4d %4d", xyz[0], xyz[1], xyz[2]))
+                }*/
+                /*x = xyz[0]
+                y = xyz[1]
+                z = xyz[2]*/
+                
+                numberSinceChange = numberSinceChange + 1;  // anton
+                
+                // anton
+                if (numberSinceChange == 100) {
+                    changeCounter = changeCounter +1;
+                    server.log("changeCounter: " + (changeCounter * 100) );
+                    numberSinceChange = 0;
                 }
+                
                 if (side != prevSide) {
+                  /*if (prevX == null) {
+                      server.log("prevX is null")
+                  } else {
+                      xDiff = x - prevX
+                      server.log("xDiff = "+xDiff)
+                  }
+                  if (prevX == null) {
+                      server.log("prevY is null")
+                  } else {
+                      yDiff = y - prevY
+                      server.log("yDiff = "+yDiff)
+                  }
+                  if (prevZ == null) {
+                      server.log("prevZ is null")
+                  } else {
+                      zDiff = z - prevZ
+                      server.log("zDiff = "+zDiff)
+                  }
+                  
+                  prevX = x
+                  prevY = y
+                  prevZ = z*/
+                  numberSinceChange = 0;
+                  changeCounter = 0;
+                  
                   server.log("side: "+ side)
+// added by Anton
+                  server.log("numberSinceChange: " + numberSinceChange);
+                  
+                  datapoint = {
+                   "id" : ID,
+                   "side" : side
+                   }
+                  agent.send("data",datapoint);
                   
                 }
                 
@@ -355,12 +414,16 @@ function pollMMA8452Q() {
 //                server.log(format("Entering SYSMOD 0x%02x", reg))
             }
             reg = readReg(INT_SOURCE)
+            imp.sleep(0.25);  // anton
         } // while (reg != 0x00)
     } else {
         server.log("INT2 LOW")
     }
-    pollMMA8452QBusy = false // clear so other inst of int handler can run
+    pollMMA8452QBusy = false; // clear so other inst of int handler can run
     //server.log("pollMMA8452Q set to false.");
+    
+    imp.sleep(0.25);  // anton
+    //local timer = imp.wakeup(0.5, pollMMA8452Q(side));  // anton let it sleep a little
 } // pollMMA8452Q
 
 ////////////////////////////////////////////////////////
@@ -381,6 +444,9 @@ server.log("imp software version : " + imp.getsoftwareversion())
 
 // BUGBUG: below needed until newer firmware!?  See http://forums.electricimp.com/discussion/comment/4875#Comment_2714
 // imp.enableblinkup(true)
+
+// added by Anton
+server.setsendtimeoutpolicy(RETURN_ON_ERROR_NO_DISCONNECT, WAIT_TIL_SENT, 30);
 
 // Configure pin1 for wakeup.  Connect MMA8452Q INT2 pin to imp pin1.
 hardware.pin1.configure(DIGITAL_IN_WAKEUP, pollMMA8452Q)
