@@ -357,9 +357,17 @@ function pollMMA8452Q() {
                 numberSinceChange = numberSinceChange + 1;  // anton
                 
                 // anton
-                if (numberSinceChange == 100) {
+                if (numberSinceChange == 50) {
+                    
+                    // send every 100 checks even if it has not changed
+                    datapoint = {
+                        "id" : ID,
+                        "side" : side
+                        }
+                    agent.send("data",datapoint);
+                    
                     changeCounter = changeCounter +1;
-                    server.log("changeCounter: " + (changeCounter * 100) );
+                    server.log("changeCounter: " + (changeCounter * 50) );
                     numberSinceChange = 0;
                 }
                 
@@ -393,6 +401,8 @@ function pollMMA8452Q() {
 // added by Anton
                   server.log("numberSinceChange: " + numberSinceChange);
                   
+                  yellowLED.write(1);
+                  
                   datapoint = {
                    "id" : ID,
                    "side" : side
@@ -415,17 +425,44 @@ function pollMMA8452Q() {
             }
             reg = readReg(INT_SOURCE)
             imp.sleep(0.25);  // anton
+            yellowLED.write(0);
         } // while (reg != 0x00)
     } else {
         server.log("INT2 LOW")
     }
     pollMMA8452QBusy = false; // clear so other inst of int handler can run
-    //server.log("pollMMA8452Q set to false.");
+    server.log("pollMMA8452Q set to false.");
     
-    imp.sleep(0.25);  // anton
+    //greenLED.write(0);
+    
     //local timer = imp.wakeup(0.5, pollMMA8452Q(side));  // anton let it sleep a little
 } // pollMMA8452Q
 
+
+function disconnectHandler(reason) {
+    if (reason != SERVER_CONNECTED) {
+        // Server is not connected, so switch on the 'disconnected' LED...
+        redLED.write(0);
+        
+        server.log("disconnect_reason: " + reason);
+        // ... and attempt to reconnect
+        // Note that we pass in the same callback we use
+        // for unexpected disconnections
+        server.connect(disconnectHandler, 5);
+        
+        server.log("disconnect_reason repeat: " + reason);
+        // Set the state flag so that other parts of the
+        // application know that the device is offline
+        disconnectedFlag = true;
+    } else {
+        // Server is connected, so turn the 'disconnected' LED off
+        // and update the state flag
+        redLED.write(1);
+        disconnectedFlag = false;
+    }
+}
+    
+    
 ////////////////////////////////////////////////////////
 // first code starts here
 
@@ -446,10 +483,52 @@ server.log("imp software version : " + imp.getsoftwareversion())
 // imp.enableblinkup(true)
 
 // added by Anton
-server.setsendtimeoutpolicy(RETURN_ON_ERROR_NO_DISCONNECT, WAIT_TIL_SENT, 30);
+//server.setsendtimeoutpolicy(RETURN_ON_ERROR, WAIT_TIL_SENT, 30);
+
+server.onunexpecteddisconnect(disconnectHandler);
+
+local netData = imp.net.info();
+if ("active" in netData) {
+    local type = netData.interface[netData.active].type;
+    
+    // We have an active network connection - what type is it?
+    if (type == "cell") {
+        // The imp is on a cellular connection
+        local imei = netData.interface[netData.active].imei;
+        server.log("The imp has IMEI " + imei + " and is connected via cellular");
+    } else {
+        // The imp is connected by WiFi or Ethernet
+        local ip = netData.ipv4.address;
+        local theSSID = netData.interface[netData.active].ssid;
+        server.log("The imp has IP address " + ip + " and is connected via " + type);
+        server.log("The imp has SSID " + theSSID);
+    }
+    
+    if (netData.interface.len() > 1) {
+        // The imp has more than one possible network interface
+        // so note the second (disconnected) one
+        local altType = netData.active == 0 ? netData.interface[1].type : netData.interface[0].type;
+        server.log("(It can also connect via " + altType + ")");
+    }
+} else {
+    server.log("The imp is not connected");
+}
 
 // Configure pin1 for wakeup.  Connect MMA8452Q INT2 pin to imp pin1.
 hardware.pin1.configure(DIGITAL_IN_WAKEUP, pollMMA8452Q)
+
+// Configure LED pins
+redLED    <- hardware.pin2;
+redLED.configure(DIGITAL_OUT, 0);
+redLED.write(1);
+
+yellowLED    <- hardware.pin5;
+yellowLED.configure(DIGITAL_OUT, 0);
+yellowLED.write(0);
+
+greenLED    <- hardware.pin7;
+greenLED.configure(DIGITAL_OUT, 0);
+greenLED.write(1);
 
 // set the I2C clock speed. We can do 10 kHz, 50 kHz, 100 kHz, or 400 kHz
 // i2c.configure(CLOCK_SPEED_400_KHZ)
