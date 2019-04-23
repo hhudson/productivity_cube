@@ -1,0 +1,866 @@
+<div class="wrapper">
+
+        What is a <i>'productivity cube'</i>, you ask? It’s a physical device that
+        you manually rotate to mark your changing tasks, thereby elegantly tracking
+        your time. We built such a device for the <a href="https://twitter.com/hashtag/insumhack19" target="_blank" rel="noopener noreferrer">Insum 2019 Hackathon</a>
+        
+        The concept is best understood in action:
+        https://www.youtube.com/embed/OtSPYfJLQBE
+        
+        <img class="alignnone size-medium wp-image-14219" src="https://insum.ca/wp-content/uploads/2019/04/thecube-254x300.png" alt="" width="254" height="300" />
+        
+        To be clear, this product is not new and exists in many commercials forms, for example:
+        <ul>
+             <li><a href="https://timeular.com/" target="_blank" rel="noopener noreferrer">Timeular</a></li>
+             <li><a href="https://itimeapp.com/" target="_blank" rel="noopener noreferrer">ITimeapp</a></li>
+             <li><a href="https://timelyapp.com/" target="_blank" rel="noopener noreferrer">Timelyapp</a></li>
+        </ul>
+        Notice that these examples retail for up to $300. Keep reading to learn how you can build this time-tracking gadget for a fraction of that cost.
+        <h3>Build Instructions</h3>
+        <!--http://hilite.me/-->
+        <h4>Go Shopping</h4>
+        You will need to select the following components ( &lt;$50 in parts):
+        <ul class="col-2-list">
+             <li>Breakout Board <a href="https://store.electricimp.com/collections/getting-started/products/april-boards?variant=31161538898" target="_blank" rel="noopener noreferrer">($10.00)</a></li>
+             <li>Capacitor <a href="http://www.digikey.com/product-detail/en/ECA-1HM221/P5183-ND/245042" target="_blank" rel="noopener noreferrer">(cheap)</a></li>
+             <li>Accelerometer <a href="https://www.sparkfun.com/products/12756" target="_blank" rel="noopener noreferrer">($9.95)</a></li>
+             <li>3 colored LEDS <a href="http://www.amazon.com/100Pcs-Light-White-Yellow-Assorted/dp/B00Q6F4Y7S/ref=sr_1_10?ie=UTF8&amp;qid=1434479041&amp;sr=8-10&amp;keywords=diy+led+kit" target="_blank" rel="noopener noreferrer">(really cheap)</a></li>
+             <li>Electric Imp <a href="https://store.electricimp.com/collections/getting-started/products/imp001?variant=31635697938" target="_blank" rel="noopener noreferrer">($21.00)</a></li>
+             <li>Breadboard <a href="http://www.amazon.com/SODIAL-Solderless-Prototype-Breadboard-Arduino/dp/B00LO2UDLO/ref=sr_1_3?s=electronics&amp;ie=UTF8&amp;qid=1434479272&amp;sr=1-3&amp;keywords=small+breadboard" target="_blank" rel="noopener noreferrer">($2.92)</a></li>
+        </ul>
+        <i>Note: In retrospect, we could have made this more easily and cheaply with
+        the following combined
+        Electric Imp and Accelerometer <a href="https://store.electricimp.com/collections/getting-started/products/impexplorer-developer-kit?variant=31118866130" target="_blank" rel="noopener noreferrer">($25.00)</a>
+        </i>
+        <h4>Check your imp setup</h4>
+        Before doing anything else, check that the breakout board is properly
+        configured for the power
+        source we will be using.
+        
+        In this project, we'll use the built in mini-usb port. Make sure that the
+        small "jumper" is securely
+        in place on the <b>USB</b> side of the three pins, as in the following
+        photos:
+        
+        <a href="https://concept2completion.com/images/imp/web/IMP_web004.jpg" target="_blank" rel="noopener noreferrer">
+        <img class="" title="click for larger image" src="https://concept2completion.com/images/imp/web/IMP_web004.jpg" width="443" height="293" /></a><a href="http://concept2completion.comhttps://concept2completion.com/images/imp/web/IMP_web005.jpg" target="_blank" rel="noopener noreferrer"><img class="" title="click for larger image" src="https://concept2completion.com/images/imp/web/IMP_web005.jpg" width="446" height="295" />
+        </a>
+        
+        <i>The first time we built one of these ourselves (using a 9 volt battery),
+        we had the jumper on the
+        wrong pins when we plugged it in - and the breakout board went up in
+        smoke! Luckily, no Imps
+        were harmed.</i>
+        <h4>Insert your imp card</h4>
+        Insert the Imp card into the breakout board, just as you would insert any SD
+        card. The side with the
+        image should face up.
+        
+        Note: the card doesn’t have its own power source, so don’t expect to receive
+        any response from
+        the device.
+        
+        <a href="https://concept2completion.com/images/imp/web/IMP_web007.jpg" target="_blank" rel="noopener noreferrer">
+        <img title="click for larger image" src="https://concept2completion.com/images/imp/web/IMP_web007.jpg" width="400" /></a><a href="http://concept2completion.comhttps://concept2completion.com/images/imp/web/IMP_web008.jpg" target="_blank" rel="noopener noreferrer"><img title="click for larger image" src="https://concept2completion.com/images/imp/web/IMP_web008.jpg" width="400" />
+        </a>
+        
+        <a href="https://concept2completion.com/images/imp/web/IMP_web009.jpg" target="_blank" rel="noopener noreferrer">
+        <img title="click for larger image" src="https://concept2completion.com/images/imp/web/IMP_web009.jpg" width="400" align="right" />
+        </a>
+        Attach the breakout board to the breadboard. Here, we’ve positioned it in
+        the top left corner of
+        the board, to leave the most room for the other components in our circuit.
+        The bread board is designed so that anything placed in the same vertical
+        column will be connected.
+        (click on images to enlarge)
+        
+        &nbsp;
+        
+        &nbsp;
+        
+        To begin building the circuit, add the 220 uF capacitor. The <strong>short,
+        negative lead</strong>
+        (also signified by the lighter stripe on the side of the capacitor) is
+        placed in the breadboard
+        column associated with the <b>GND</b> pin on the breakout board, while the
+        <strong>longer, positive
+        lead</strong> goes in the adjacent column, connecting to the <b>VIN</b>
+        pin of the breakout
+        board.
+        
+        <b>Note:</b> You'll have to slightly bend the longer, positive lead so that
+        both leads will
+        successful make a connection to the bread board.
+        
+        <a href="https://concept2completion.com/images/imp/web/IMP_web010.jpg" target="_blank" rel="noopener noreferrer">
+        <img title="click for larger image" src="https://concept2completion.com/images/imp/web/IMP_web010.jpg" width="400" align="right" />
+        </a><a href="https://concept2completion.com/images/imp/web/IOT_schematics_cap_full.PNG" target="_blank" rel="noopener noreferrer">
+        </a><em>Why?</em>
+        
+        <em>The initial start-up &amp; connection of the Imp draws more power than
+        normal operation, so by placing the capacitor in parallel with the power
+        supply, we can supplement the power supply with the charge stored in the
+        capacitor. You can control how frequently the device sends data. When
+        configured to send data at intervals of 2 minutes or greater, the device
+        will go into a deep sleep to conserve energy. The capacitor helps the
+        wake-up process go smoothly, like your morning cup of coffee.</em>
+        <h4>Adding the LEDs</h4>
+        The LEDs are primarily for debugging purposes and you can skip this part if
+        you don't have LEDs on hand.
+        <img class="alignnone size-medium wp-image-14227" src="https://insum.ca/wp-content/uploads/2019/04/schematic1-300x256.png" alt="" width="300" height="256" /><img class="alignnone size-medium wp-image-14231" src="https://insum.ca/wp-content/uploads/2019/04/setup1-286x300.png" alt="" width="286" height="300" />
+        <table>
+        <tbody>
+        <tr>
+        <th>LED</th>
+        <th>Longer lead goes in:</th>
+        <th>Shorter lead goes in:</th>
+        </tr>
+        <tr>
+        <td>Green LED</td>
+        <td>Pin7</td>
+        <td rowspan="3">Ground</td>
+        </tr>
+        <tr>
+        <td>Yellow LED</td>
+        <td>Pin5</td>
+        </tr>
+        <tr>
+        <td>Red LED</td>
+        <td>Pin5</td>
+        </tr>
+        </tbody>
+        </table>
+        <strong>Before Powering Up</strong>
+        Finally, it's time to turn on the device! Before you plug the mini-USB into
+        the port on the
+        breakout board, double check that the LEDs and resistors are properly
+        connected, that the
+        capacitor is oriented correctly, and the power-jumper is placed on the two
+        USB pins.
+        
+        &nbsp;
+        
+        </div>
+        <div class="wrap">
+        <h3>Connecting Your Own Imp</h3>
+        Create an account at <a href="https://electricimp.com/">https://electricimp.com/</a>
+        and download the Electric Imp app to you smart phone (the app makes
+        connecting your imp much easier).
+        
+        <span style="font-weight: 400;">Information on connecting your device to a
+        WiFi network can be found </span><a href="https://electricimp.com/platform/blinkup/"><span style="font-weight: 400;">here</span></a><span style="font-weight: 400;">. In our experience, it is not unusual for the process to require
+        multiple attempts - don't give up, we have configured hundreds of Imps,
+        and you can too! It may help to be in a darker environment and to
+        initiate the process as soon after the device receives power as
+        possible. Note: The Electric Imp will not work with a 5GHz wifi network.</span>
+        <span style="font-weight: 400;">Pro-tip : Use the electric imp app on your
+        phone</span>
+        
+        <span style="font-weight: 400;">After connecting the Imp to the network, it
+        can be programmed via the </span><a href="https://ide.electricimp.com/login"><span style="font-weight: 400;">Imp Cloud IDE</span></a><span style="font-weight: 400;">.
+        After logging in with the account you previously created and used to
+        Blink Up the Imp, click Create New Model (upper left corner).</span>
+        <h4>Agent code
+        <!-- HTML generated using hilite.me --></h4>
+        <div style="background: #ffffff; overflow: auto; width: auto; height: 200px; border: solid gray; border-width: .1em .1em .1em .8em; padding: .2em .6em;">
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #888888;">// IOTemp Agent Code</span>
+                
+                <span style="color: #888888;">/* </span>
+                <span style="color: #888888;">   Change Log</span>
+                <span style="color: #888888;">   2019-03-23</span>
+                <span style="color: #888888;">*/</span>
+                
+                <span style="color: #888888;">/* GLOBALS and CONSTANTS -----------------------------------------------------*/</span>
+                
+                <span style="color: #008800; font-weight: bold;">const</span> ORDS_URL <span style="color: #333333;">=</span> <span style="background-color: #fff0f0;">"https://dev.insumlabs.com/webappsdev/hackathon2019/cube/state"</span>;
+                
+                
+                
+                
+                <span style="color: #888888;">/* CLASS AND GLOBAL FUNCTION DEFINITIONS -------------------------------------*/</span>
+                
+                <span style="color: #008800; font-weight: bold;">function</span> postToCube(data,id) {
+                    
+                    server.log(<span style="background-color: #fff0f0;">"agentLastSide: "</span> <span style="color: #333333;">+</span> agentLastSide);
+                    
+                    <span style="color: #008800; font-weight: bold;">if</span> (agentLastSide <span style="color: #333333;">!=</span> data)  {
+                        
+                 
+                    
+                    <span style="color: #888888;">// insert the schema retrieved above into the request url</span>
+                    local url <span style="color: #333333;">=</span> ORDS_URL;
+                    <span style="color: #888888;">//local headers = { "User-Agent" : "C2-Imp-Lib/0.1" };</span>
+                    
+                    local headers <span style="color: #333333;">=</span> { <span style="background-color: #fff0f0;">"Content-Type"</span><span style="color: #333333;">:</span> <span style="background-color: #fff0f0;">"application/json"</span> };
+                    
+                    local requestData <span style="color: #333333;">=</span> { <span style="background-color: #fff0f0;">"deviceID"</span><span style="color: #333333;">:</span> id, <span style="background-color: #fff0f0;">"side"</span><span style="color: #333333;">:</span> data };
+                    local body <span style="color: #333333;">=</span> http.jsonencode(requestData);
+                    
+                    server.log(url);
+                    server.log(body);
+                
+                    local response <span style="color: #333333;">=</span> http.post(url, headers, body).sendsync();
+                    
+                    <span style="color: #008800; font-weight: bold;">if</span>(response.statuscode <span style="color: #333333;">!=</span> <span style="color: #0000dd; font-weight: bold;">201</span> <span style="color: #333333;">&amp;&amp;</span> response.statuscode <span style="color: #333333;">!=</span> <span style="color: #0000dd; font-weight: bold;">200</span>) {
+                        server.log(<span style="background-color: #fff0f0;">"error with http request, status: "</span> <span style="color: #333333;">+</span> response.statuscode);
+                        server.log(<span style="background-color: #fff0f0;">"error with http request: "</span> <span style="color: #333333;">+</span> response.body);  
+                        
+                        server.log(<span style="background-color: #fff0f0;">"retrying... "</span>); 
+                        local response <span style="color: #333333;">=</span> http.post(url, headers, body).sendsync();
+                        server.log(<span style="background-color: #fff0f0;">"retry Posted to Cube: "</span><span style="color: #333333;">+</span>data<span style="color: #333333;">+</span><span style="background-color: #fff0f0;">", got return code: "</span><span style="color: #333333;">+</span>response.statuscode) ;
+                            
+                        <span style="color: #008800; font-weight: bold;">return</span> <span style="color: #008800; font-weight: bold;">null</span>;
+                    }
+                
+                    agentLastSide <span style="color: #333333;">=</span> data;   
+                    
+                    <span style="color: #888888;">//local JSONdata = http.jsondecode(response.body);</span>
+                    
+                    server.log(<span style="background-color: #fff0f0;">"Posted to Cube: "</span><span style="color: #333333;">+</span>data<span style="color: #333333;">+</span><span style="background-color: #fff0f0;">", got return code: "</span><span style="color: #333333;">+</span>response.statuscode) ;
+                    } <span style="color: #008800; font-weight: bold;">else</span> {
+                    server.log(<span style="background-color: #fff0f0;">"agentLastSide matches data: "</span> <span style="color: #333333;">+</span> data);
+                    }
+                }
+                
+                
+                
+                <span style="color: #888888;">/* REGISTER DEVICE CALLBACKS  ------------------------------------------------*/</span>
+                
+                device.on(<span style="background-color: #fff0f0;">"data"</span>, <span style="color: #008800; font-weight: bold;">function</span>(datapoint) {
+                    postToCube(datapoint.side, datapoint.id);    
+                });
+                
+                <span style="color: #888888;">/* REGISTER HTTP HANDLER -----------------------------------------------------*/</span>
+                
+                <span style="color: #888888;">// This agent does not need an HTTP handler</span>
+                
+                <span style="color: #888888;">/* RUNTIME BEGINS HERE -------------------------------------------------------*/</span>
+                
+                server.log(<span style="background-color: #fff0f0;">"Cube Agent Running"</span>);
+                
+                <span style="color: #888888;">// Register onconnnect and ondisconnect callbacks</span>
+                device.onconnect(<span style="color: #008800; font-weight: bold;">function</span>() { 
+                    server.log(<span style="background-color: #fff0f0;">"Device connected to agent"</span>);
+                });
+                
+                device.ondisconnect(<span style="color: #008800; font-weight: bold;">function</span>() { 
+                    server.log(<span style="background-color: #fff0f0;">"Device disconnected from agent"</span>);
+                });
+                
+                
+                <span style="color: #888888;">//</span>
+                agentLastSide <span style="color: #333333;">&lt;-</span> <span style="color: #333333;">-</span><span style="color: #0000dd; font-weight: bold;">1</span>;
+                
+                server.log(<span style="background-color: #fff0f0;">"agentLastSide on start: "</span> <span style="color: #333333;">+</span> agentLastSide);
+        </pre>
+        </div>
+        </div>
+        <div class="wrap">
+        <h4></h4>
+        <h4>Device code</h4>
+        <!-- HTML generated using hilite.me -->
+        <div style="background: #ffffff; overflow: auto; width: auto; height: 200px; border: solid gray; border-width: .1em .1em .1em .8em; padding: .2em .6em;">
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #888888;">// Sample code using MMA8452Q accelerometer</span>
+                <span style="color: #888888;">// Electric Imp Device Squirrel code</span>
+                <span style="color: #888888;">// License:</span>
+                <span style="color: #888888;">// This code is provided under the Creative Commons Attribution-ShareAlike 3.0 License</span>
+                <span style="color: #888888;">//    http://creativecommons.org/licenses/by-sa/3.0/us/legalcode</span>
+                <span style="color: #888888;">// If you find bugs report to duppypro on github or @duppy #MMA8452Q on twitter</span>
+                <span style="color: #888888;">// If you find this useful, send a good word to @duppy #MMA8452Q</span>
+                <span style="color: #888888;">// Thanks to @jayrz for finding the first bug.</span>
+                
+                <span style="color: #888888;">/////////////////////////////////////////////////</span>
+                <span style="color: #888888;">// global constants and variables</span>
+                <span style="color: #008800; font-weight: bold;">const</span> versionString <span style="color: #333333;">=</span> <span style="background-color: #fff0f0;">"MMA8452Q Sample v00.01.2013-10-29a"</span>
+                ID <span style="color: #333333;">&lt;-</span> hardware.getdeviceid(); 
+                
+                <span style="color: #888888;">//const accelChangeThresh = 500 // change in accel per sample to count as movement.  Units of milliGs</span>
+                pollMMA8452QBusy <span style="color: #333333;">&lt;-</span> <span style="color: #008800; font-weight: bold;">false</span> <span style="color: #888888;">// guard against interrupt handler collisions FIXME: Is this necessary?  Debugging why I get no EA_BIT set error sometimes</span>
+                <span style="color: #888888;">//pollMMA8452QBusy &lt;- true // hhh guard against interrupt handler collisions FIXME: Is this necessary?  Debugging why I get no EA_BIT set error sometimes</span>
+                
+                <span style="color: #888888;">///////////////////////////////////////////////</span>
+                <span style="color: #888888;">// constants for MMA8452Q i2c registers</span>
+                <span style="color: #888888;">// the slave address for this device is set in hardware. Creating a variable to save it here is helpful.</span>
+                <span style="color: #888888;">// The SparkFun breakout board defaults to 0x1D, set to 0x1C if SA0 jumper on the bottom of the board is set</span>
+                <span style="color: #008800; font-weight: bold;">const</span> MMA8452Q_ADDR <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x1D</span> <span style="color: #888888;">// A '&lt;&lt; 1' is needed.  I add the '&lt;&lt; 1' in the helper functions.</span>
+                <span style="color: #888888;">//const MM8452Q_ADDR = 0x1C // Use this address if SA0 jumper is set. </span>
+                <span style="color: #008800; font-weight: bold;">const</span> STATUS           <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x00</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> ZYXOW_BIT        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span> <span style="color: #888888;">// name_BIT == BIT position of name</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> ZYXDR_BIT        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x3</span>
+                <span style="color: #008800; font-weight: bold;">const</span> OUT_X_MSB        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x01</span>
+                <span style="color: #008800; font-weight: bold;">const</span> SYSMOD           <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0B</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SYSMOD_STANDBY   <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x00</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SYSMOD_WAKE      <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x01</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SYSMOD_SLEEP     <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x02</span>
+                <span style="color: #008800; font-weight: bold;">const</span> INT_SOURCE       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0C</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SRC_ASLP_BIT     <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SRC_FF_MT_BIT    <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SRC_DRDY_BIT     <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0</span>
+                <span style="color: #008800; font-weight: bold;">const</span> WHO_AM_I         <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0D</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> I_AM_MMA8452Q    <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2A</span> <span style="color: #888888;">// read addr WHO_AM_I, expect I_AM_MMA8452Q</span>
+                <span style="color: #008800; font-weight: bold;">const</span> XYZ_DATA_CFG     <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0E</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> FS_2G            <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x00</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> FS_4G            <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x01</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> FS_8G            <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x02</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> HPF_OUT_BIT      <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x5</span>
+                <span style="color: #008800; font-weight: bold;">const</span> HP_FILTER_CUTOFF <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0F</span>
+                <span style="color: #008800; font-weight: bold;">const</span> FF_MT_CFG        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x15</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> ELE_BIT          <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> OAE_BIT          <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x6</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> XYZEFE_BIT       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x3</span> <span style="color: #888888;">// numBits == 3 (one each for XYZ)</span>
+                        <span style="color: #008800; font-weight: bold;">const</span> XYZEFE_ALL       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x07</span> <span style="color: #888888;">// enable all 3 bits</span>
+                <span style="color: #008800; font-weight: bold;">const</span> FF_MT_SRC        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x16</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> EA_BIT           <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span>
+                <span style="color: #008800; font-weight: bold;">const</span> FF_MT_THS        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x17</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> DBCNTM_BIT       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> THS_BIT          <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0</span> <span style="color: #888888;">// numBits == 7</span>
+                <span style="color: #008800; font-weight: bold;">const</span> FF_MT_COUNT      <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x18</span>
+                <span style="color: #008800; font-weight: bold;">const</span> ASLP_COUNT       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x29</span>
+                <span style="color: #008800; font-weight: bold;">const</span> CTRL_REG1        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2A</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> ASLP_RATE_BIT    <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x6</span> <span style="color: #888888;">// numBits == 2</span>
+                        <span style="color: #008800; font-weight: bold;">const</span> ASLP_RATE_12p5HZ <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x1</span>
+                        <span style="color: #008800; font-weight: bold;">const</span> ASLP_RATE_1p56HZ <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x3</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> DR_BIT           <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x3</span> <span style="color: #888888;">// numBits == 3</span>
+                        <span style="color: #008800; font-weight: bold;">const</span> DR_12p5HZ        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x5</span>
+                        <span style="color: #008800; font-weight: bold;">const</span> DR_1p56HZ        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> LNOISE_BIT       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> F_READ_BIT       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x1</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> ACTIVE_BIT       <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0</span>
+                <span style="color: #008800; font-weight: bold;">const</span> CTRL_REG2        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2B</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> ST_BIT           <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> RST_BIT          <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x6</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SMODS_BIT        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x3</span> <span style="color: #888888;">// numBits == 2</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> SLPE_BIT         <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> MODS_BIT         <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0</span> <span style="color: #888888;">// numBits == 2</span>
+                        <span style="color: #008800; font-weight: bold;">const</span> MODS_NORMAL      <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x00</span>
+                        <span style="color: #008800; font-weight: bold;">const</span> MODS_LOW_POWER   <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x03</span>
+                <span style="color: #008800; font-weight: bold;">const</span> CTRL_REG3        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2C</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> WAKE_FF_MT_BIT   <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x3</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> IPOL_BIT         <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x1</span>
+                <span style="color: #008800; font-weight: bold;">const</span> CTRL_REG4        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2D</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> INT_EN_ASLP_BIT  <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x7</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> INT_EN_LNDPRT_BIT<span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x4</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> INT_EN_FF_MT_BIT <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2</span>
+                    <span style="color: #008800; font-weight: bold;">const</span> INT_EN_DRDY_BIT  <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x0</span>
+                <span style="color: #008800; font-weight: bold;">const</span> CTRL_REG5        <span style="color: #333333;">=</span> <span style="color: #005588; font-weight: bold;">0x2E</span>
+                
+                <span style="color: #888888;">// helper variables for MMA8452Q. These are not const because they may have reason to change dynamically.</span>
+                i2cRetryPeriod <span style="color: #333333;">&lt;-</span> <span style="color: #6600ee; font-weight: bold;">1.0</span> <span style="color: #888888;">// seconds to wait before retrying a failed i2c operation //hhh</span>
+                maxG <span style="color: #333333;">&lt;-</span> FS_4G <span style="color: #888888;">// what scale to get G readings</span>
+                i2c <span style="color: #333333;">&lt;-</span> hardware.i2c89 <span style="color: #888888;">// now can use i2c.read()</span>
+                
+                <span style="color: #888888;">///////////////////////////////////////////////</span>
+                <span style="color: #888888;">//define functions</span>
+                
+                <span style="color: #888888;">// start with fairly generic i2c helper functions</span>
+                
+                <span style="color: #008800; font-weight: bold;">function</span> readBitField(val, bitPosition, numBits){ <span style="color: #888888;">// works for 8bit registers</span>
+                <span style="color: #888888;">// bitPosition and numBits are not bounds checked</span>
+                    <span style="color: #008800; font-weight: bold;">return</span> (val <span style="color: #333333;">&gt;&gt;</span> bitPosition) <span style="color: #333333;">&amp;</span> (<span style="color: #005588; font-weight: bold;">0x00FF</span> <span style="color: #333333;">&gt;&gt;</span> (<span style="color: #0000dd; font-weight: bold;">8</span> <span style="color: #333333;">-</span> numBits))
+                }
+                
+                <span style="color: #008800; font-weight: bold;">function</span> readBit(val, bitPosition) { <span style="color: #008800; font-weight: bold;">return</span> readBitField(val, bitPosition, <span style="color: #0000dd; font-weight: bold;">1</span>) }
+                
+                <span style="color: #008800; font-weight: bold;">function</span> writeBitField(val, bitPosition, numBits, newVal) { <span style="color: #888888;">// works for 8bit registers</span>
+                <span style="color: #888888;">// newVal is not bounds checked</span>
+                    <span style="color: #888888;">//server.log("writeBitField = val: "+writeBitField+"/ bitPosition: "+bitPosition+" / numBits: "+numBits+" / newVal: "+newVal)</span>
+                    <span style="color: #008800; font-weight: bold;">return</span> (val <span style="color: #333333;">&amp;</span> (((<span style="color: #005588; font-weight: bold;">0x00FF</span> <span style="color: #333333;">&gt;&gt;</span> (<span style="color: #0000dd; font-weight: bold;">8</span> <span style="color: #333333;">-</span> numBits)) <span style="color: #333333;">&lt;&lt;</span> bitPosition) <span style="color: #333333;">^</span> <span style="color: #005588; font-weight: bold;">0x00FF</span>)) <span style="color: #333333;">|</span> (newVal <span style="color: #333333;">&lt;&lt;</span> bitPosition)
+                }
+                
+                <span style="color: #008800; font-weight: bold;">function</span> writeBit(val, bitPosition, newVal) { <span style="color: #008800; font-weight: bold;">return</span> writeBitField(val, bitPosition, <span style="color: #0000dd; font-weight: bold;">1</span>, newVal) }
+                
+                <span style="color: #888888;">// Read a single byte from addressToRead and return it as a byte.  (The '[0]' causes a byte to return)</span>
+                <span style="color: #008800; font-weight: bold;">function</span> readReg(addressToRead) {
+                    <span style="color: #008800; font-weight: bold;">return</span> readSequentialRegs(addressToRead, <span style="color: #0000dd; font-weight: bold;">1</span>)[<span style="color: #0000dd; font-weight: bold;">0</span>]
+                }   
+                
+                <span style="color: #888888;">// Writes a single byte (dataToWrite) into addressToWrite.  Returns error code from i2c.write</span>
+                <span style="color: #888888;">// Continue retry until success.  Caller does not need to check error code</span>
+                <span style="color: #008800; font-weight: bold;">function</span> writeReg(addressToWrite, dataToWrite) {
+                    <span style="color: #888888;">//server.log("writeReg = addressToWrite :"+addressToWrite+" / dataToWrite :"+dataToWrite);</span>
+                    local err <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">null</span>
+                    <span style="color: #008800; font-weight: bold;">while</span> (err <span style="color: #333333;">==</span> <span style="color: #008800; font-weight: bold;">null</span>) {
+                        err <span style="color: #333333;">=</span> i2c.write(MMA8452Q_ADDR <span style="color: #333333;">&lt;&lt;</span> <span style="color: #0000dd; font-weight: bold;">1</span>, format(<span style="background-color: #fff0f0;">"%c%c"</span>, addressToWrite, dataToWrite))
+                        <span style="color: #888888;">// server.log(format("i2c.write addr=0x%02x data=0x%02x", addressToWrite, dataToWrite))</span>
+                        <span style="color: #008800; font-weight: bold;">if</span> (err <span style="color: #333333;">==</span> <span style="color: #008800; font-weight: bold;">null</span>) {
+                            server.error(<span style="background-color: #fff0f0;">"i2c.write of value "</span> <span style="color: #333333;">+</span> format(<span style="background-color: #fff0f0;">"0x%02x"</span>, dataToWrite) <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" to "</span> <span style="color: #333333;">+</span> format(<span style="background-color: #fff0f0;">"0x%02x"</span>, addressToWrite) <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" failed."</span>)
+                            imp.sleep(i2cRetryPeriod)
+                            server.error(<span style="background-color: #fff0f0;">"retry i2c.write"</span>)
+                        }
+                    }
+                    <span style="color: #008800; font-weight: bold;">return</span> err
+                }
+                
+                <span style="color: #888888;">// Read numBytes sequentially, starting at addressToRead</span>
+                <span style="color: #888888;">// Continue retry until success.  Caller does not need to check error code</span>
+                <span style="color: #008800; font-weight: bold;">function</span> readSequentialRegs(addressToRead, numBytes) {
+                    local data <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">null</span>
+                    
+                    <span style="color: #008800; font-weight: bold;">while</span> (data <span style="color: #333333;">==</span> <span style="color: #008800; font-weight: bold;">null</span>) {
+                        data <span style="color: #333333;">=</span> i2c.read(MMA8452Q_ADDR <span style="color: #333333;">&lt;&lt;</span> <span style="color: #0000dd; font-weight: bold;">1</span>, format(<span style="background-color: #fff0f0;">"%c"</span>, addressToRead), numBytes)
+                        <span style="color: #008800; font-weight: bold;">if</span> (data <span style="color: #333333;">==</span> <span style="color: #008800; font-weight: bold;">null</span>) {
+                            server.error(<span style="background-color: #fff0f0;">"i2c.read from "</span> <span style="color: #333333;">+</span> format(<span style="background-color: #fff0f0;">"0x%02x"</span>, addressToRead) <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" of "</span> <span style="color: #333333;">+</span> numBytes <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" byte"</span> <span style="color: #333333;">+</span> ((numBytes <span style="color: #333333;">&gt;</span> <span style="color: #0000dd; font-weight: bold;">1</span>) <span style="color: #333333;">?</span> <span style="background-color: #fff0f0;">"s"</span> <span style="color: #333333;">:</span> <span style="background-color: #fff0f0;">""</span>) <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" failed."</span>)
+                            imp.sleep(i2cRetryPeriod)
+                            server.error(<span style="background-color: #fff0f0;">"retry i2c.read"</span>)
+                        }
+                    }
+                    <span style="color: #008800; font-weight: bold;">return</span> data
+                }
+                
+                <span style="color: #888888;">// now functions unique to MMA8452Q</span>
+                
+                <span style="color: #008800; font-weight: bold;">function</span> readAccelData() {
+                    <span style="color: #888888;">//server.log("readAccelData");</span>
+                    local rawData <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">null</span> <span style="color: #888888;">// x/y/z accel register data stored here, 3 bytes</span>
+                    local axisVal <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">null</span>
+                    local accelData <span style="color: #333333;">=</span> array(<span style="color: #0000dd; font-weight: bold;">3</span>)
+                    local side <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">null</span>
+                    local i
+                    local val
+                    
+                    rawData <span style="color: #333333;">=</span> readSequentialRegs(OUT_X_MSB, <span style="color: #0000dd; font-weight: bold;">3</span>)  <span style="color: #888888;">// Read the three raw data registers into data array</span>
+                    foreach (i, val <span style="color: #008800; font-weight: bold;">in</span> rawData) {
+                        axisVal      <span style="color: #333333;">=</span> math.floor(<span style="color: #6600ee; font-weight: bold;">1000.0</span> <span style="color: #333333;">*</span> ((val <span style="color: #333333;">&lt;</span> <span style="color: #0000dd; font-weight: bold;">128</span> <span style="color: #333333;">?</span> val <span style="color: #333333;">:</span> val <span style="color: #333333;">-</span> <span style="color: #0000dd; font-weight: bold;">256</span>) <span style="color: #333333;">/</span> ((<span style="color: #0000dd; font-weight: bold;">64</span> <span style="color: #333333;">&gt;&gt;</span> maxG) <span style="color: #333333;">+</span> <span style="color: #6600ee; font-weight: bold;">0.0</span>)))
+                        accelData[i] <span style="color: #333333;">=</span> axisVal
+                            <span style="color: #888888;">// HACK: in above calc maxG just happens to be (log2(full_scale) - 1)  see: const for FS_2G, FS_4G, FS_8G </span>
+                        <span style="color: #888888;">//convert to signed integer milliGs</span>
+                    }
+                    <span style="color: #008800; font-weight: bold;">return</span> accelData
+                }
+                
+                <span style="color: #888888;">// Reset the MMA8452Q</span>
+                <span style="color: #008800; font-weight: bold;">function</span> MMA8452QReset() {
+                    local reg
+                    
+                    <span style="color: #008800; font-weight: bold;">do</span> {
+                        reg <span style="color: #333333;">=</span> readReg(WHO_AM_I)  <span style="color: #888888;">// Read WHO_AM_I register</span>
+                        <span style="color: #008800; font-weight: bold;">if</span> (reg <span style="color: #333333;">==</span> I_AM_MMA8452Q) {
+                            server.log(<span style="background-color: #fff0f0;">"Found MMA8452Q.  Sending RST command..."</span>)
+                            <span style="color: #008800; font-weight: bold;">break</span>
+                        } <span style="color: #008800; font-weight: bold;">else</span> {
+                            server.error(<span style="background-color: #fff0f0;">"Could not connect to MMA8452Q: WHO_AM_I reg == "</span> <span style="color: #333333;">+</span> format(<span style="background-color: #fff0f0;">"0x%02x"</span>, reg))
+                            imp.sleep(i2cRetryPeriod)
+                        }
+                    } <span style="color: #008800; font-weight: bold;">while</span> (<span style="color: #008800; font-weight: bold;">true</span>)
+                    
+                    <span style="color: #888888;">// send reset command</span>
+                    writeReg(CTRL_REG2, writeBit(readReg(CTRL_REG2), RST_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>))
+                
+                    <span style="color: #008800; font-weight: bold;">do</span> {
+                        reg <span style="color: #333333;">=</span> readReg(WHO_AM_I)  <span style="color: #888888;">// Read WHO_AM_I register</span>
+                        <span style="color: #008800; font-weight: bold;">if</span> (reg <span style="color: #333333;">==</span> I_AM_MMA8452Q) {
+                            server.log(<span style="background-color: #fff0f0;">"MMA8452Q is online!"</span>)
+                            <span style="color: #008800; font-weight: bold;">break</span>
+                        } <span style="color: #008800; font-weight: bold;">else</span> {
+                            server.error(<span style="background-color: #fff0f0;">"Could not connect to MMA8452Q: WHO_AM_I reg == "</span> <span style="color: #333333;">+</span> format(<span style="background-color: #fff0f0;">"0x%02x"</span>, reg))
+                            imp.sleep(i2cRetryPeriod)
+                        }
+                    } <span style="color: #008800; font-weight: bold;">while</span> (<span style="color: #008800; font-weight: bold;">true</span>)
+                }
+                
+                <span style="color: #008800; font-weight: bold;">function</span> MMA8452QSetActive(mode) {
+                    server.log(<span style="background-color: #fff0f0;">"MMA8452Q is set to active."</span>)
+                    <span style="color: #888888;">// Sets the MMA8452Q active mode.</span>
+                    <span style="color: #888888;">// 0 == STANDBY for changing registers</span>
+                    <span style="color: #888888;">// 1 == ACTIVE for outputting data</span>
+                    writeReg(CTRL_REG1, writeBit(readReg(CTRL_REG1), ACTIVE_BIT, mode))
+                }
+                
+                <span style="color: #008800; font-weight: bold;">function</span> initMMA8452Q() {
+                <span style="color: #888888;">// Initialize the MMA8452Q registers </span>
+                <span style="color: #888888;">// See the many application notes for more info on setting all of these registers:</span>
+                <span style="color: #888888;">// http://www.freescale.com/webapp/sps/site/prod_summary.jsp?code=MMA8452Q</span>
+                    local reg
+                    
+                    MMA8452QReset() <span style="color: #888888;">// Sometimes imp card resets and MMA8452Q keeps power</span>
+                    <span style="color: #888888;">// Must be in standby to change registers</span>
+                    <span style="color: #888888;">// in STANDBY already after RESET//MMA8452QSetActive(0)</span>
+                
+                    <span style="color: #888888;">// Set up the full scale range to 2, 4, or 8g.</span>
+                    <span style="color: #888888;">// FIXME: assumes HPF_OUT_BIT in this same register always == 0</span>
+                    writeReg(XYZ_DATA_CFG, maxG)
+                    server.log(format(<span style="background-color: #fff0f0;">"XYZ_DATA_CFG == 0x%02x"</span>, readReg(XYZ_DATA_CFG)))
+                    
+                    <span style="color: #888888;">// setup CTRL_REG1</span>
+                    reg <span style="color: #333333;">=</span> readReg(CTRL_REG1)
+                    reg <span style="color: #333333;">=</span> writeBitField(reg, ASLP_RATE_BIT, <span style="color: #0000dd; font-weight: bold;">2</span>, ASLP_RATE_1p56HZ)
+                    reg <span style="color: #333333;">=</span> writeBitField(reg, DR_BIT, <span style="color: #0000dd; font-weight: bold;">3</span>, DR_12p5HZ)
+                    <span style="color: #888888;">// leave LNOISE_BIT as default off to save power</span>
+                    <span style="color: #888888;">// Set Fast read mode to read 8bits per xyz instead of 12bits</span>
+                    reg <span style="color: #333333;">=</span> writeBit(reg, F_READ_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>)
+                    <span style="color: #888888;">// set all CTRL_REG1 bit fields in one i2c write</span>
+                    writeReg(CTRL_REG1, reg)
+                    server.log(format(<span style="background-color: #fff0f0;">"CTRL_REG1 == 0x%02x"</span>, readReg(CTRL_REG1)))
+                    
+                    <span style="color: #888888;">// setup CTRL_REG2</span>
+                    reg <span style="color: #333333;">=</span> readReg(CTRL_REG2)
+                    <span style="color: #888888;">// set Oversample mode in sleep</span>
+                    reg <span style="color: #333333;">=</span> writeBitField(reg, SMODS_BIT, <span style="color: #0000dd; font-weight: bold;">2</span>, MODS_LOW_POWER)
+                    <span style="color: #888888;">// Enable Auto-SLEEP</span>
+                    <span style="color: #888888;">//reg = writeBit(reg, SLPE_BIT, 1)</span>
+                    <span style="color: #888888;">// Disable Auto-SLEEP</span>
+                    reg <span style="color: #333333;">=</span> writeBit(reg, SLPE_BIT, <span style="color: #0000dd; font-weight: bold;">0</span>)
+                    <span style="color: #888888;">// set Oversample mode in wake</span>
+                    reg <span style="color: #333333;">=</span> writeBitField(reg, MODS_BIT, <span style="color: #0000dd; font-weight: bold;">2</span>, MODS_LOW_POWER)
+                    <span style="color: #888888;">// set all CTRL_REG2 bit fields in one i2c write</span>
+                    writeReg(CTRL_REG2, reg)
+                    server.log(format(<span style="background-color: #fff0f0;">"CTRL_REG2 == 0x%02x"</span>, readReg(CTRL_REG2)))
+                    
+                    <span style="color: #888888;">// setup CTRL_REG3</span>
+                    reg <span style="color: #333333;">=</span> readReg(CTRL_REG3)
+                    <span style="color: #888888;">// allow Motion to wake from SLEEP</span>
+                    reg <span style="color: #333333;">=</span> writeBit(reg, WAKE_FF_MT_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>)
+                    <span style="color: #888888;">// change Int Polarity</span>
+                    reg <span style="color: #333333;">=</span> writeBit(reg, IPOL_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>)
+                    <span style="color: #888888;">// set all CTRL_REG3 bit fields in one i2c write</span>
+                    writeReg(CTRL_REG3, reg)
+                    server.log(format(<span style="background-color: #fff0f0;">"CTRL_REG3 == 0x%02x"</span>, readReg(CTRL_REG3)))
+                
+                    <span style="color: #888888;">// setup FF_MT_CFG</span>
+                    reg <span style="color: #333333;">=</span> readReg(FF_MT_CFG)
+                    <span style="color: #888888;">// enable ELE_BIT to latch FF_MT_SRC events</span>
+                    reg <span style="color: #333333;">=</span> writeBit(reg, ELE_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>)
+                    <span style="color: #888888;">// enable Motion detection (not Free Fall detection)</span>
+                    reg <span style="color: #333333;">=</span> writeBit(reg, OAE_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>)
+                    <span style="color: #888888;">// enable on all axis x, y, and z</span>
+                    reg <span style="color: #333333;">=</span> writeBitField(reg, XYZEFE_BIT, <span style="color: #0000dd; font-weight: bold;">3</span>, XYZEFE_ALL)
+                    <span style="color: #888888;">// set all FF_MT_CFG bit fields in one i2c write</span>
+                    writeReg(FF_MT_CFG, reg)
+                    server.log(format(<span style="background-color: #fff0f0;">"FF_MT_CFG == 0x%02x"</span>, readReg(FF_MT_CFG)))
+                    
+                    <span style="color: #888888;">// setup Motion threshold to n*0.063.  (16 * 0.063 == 1G)</span>
+                    writeReg(FF_MT_THS, <span style="color: #0000dd; font-weight: bold;">60</span>) <span style="color: #888888;">// FIXME: this is a shortcut and assumes DBCNTM_BIT is 0</span>
+                    server.log(format(<span style="background-color: #fff0f0;">"FF_MT_THS == 0x%02x"</span>, readReg(FF_MT_THS)))
+                
+                    <span style="color: #888888;">// setup sleep counter, the time in multiples of 320ms of no activity to enter sleep mode</span>
+                    <span style="color: #888888;">//dont' use ASLP_COUNT for now, use change in prev AccelData reading</span>
+                    <span style="color: #888888;">//writeReg(ASLP_COUNT, 10) // 10 * 320ms = 3.2 seconds</span>
+                    
+                    <span style="color: #888888;">//Enable Sleep interrupts</span>
+                <span style="color: #888888;">//    writeReg(CTRL_REG4, writeBit(readReg(CTRL_REG4), INT_EN_ASLP_BIT, 1))</span>
+                    <span style="color: #888888;">//Enable Motion interrupts</span>
+                    writeReg(CTRL_REG4, writeBit(readReg(CTRL_REG4), INT_EN_FF_MT_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>))
+                    <span style="color: #888888;">// Enable interrupts on every new data</span>
+                    writeReg(CTRL_REG4, writeBit(readReg(CTRL_REG4), INT_EN_DRDY_BIT, <span style="color: #0000dd; font-weight: bold;">1</span>))
+                    server.log(format(<span style="background-color: #fff0f0;">"CTRL_REG4 == 0x%02x"</span>, readReg(CTRL_REG4)))
+                
+                    MMA8452QSetActive(<span style="color: #0000dd; font-weight: bold;">1</span>)  <span style="color: #888888;">// Set to active to start reading</span>
+                } <span style="color: #888888;">// initMMA8452Q</span>
+                
+                <span style="color: #888888;">// now application specific functions</span>
+                
+                <span style="color: #008800; font-weight: bold;">function</span> pollMMA8452Q() {
+                    <span style="color: #888888;">//server.log("pollMMA8452Q invoked.");</span>
+                    local xyz
+                    local x
+                    local y
+                    local z
+                    local prevX
+                    local prevY 
+                    local prevZ
+                    local xDiff
+                    local yDiff
+                    local zDiff
+                    local reg
+                    local prevPrevSide
+                    local prevSide;
+                    local side 
+                <span style="color: #888888;">// added by anton</span>
+                    local datapoint    
+                    local numberSinceChange <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">0</span>;
+                    local changeCounter <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">0</span>;
+                
+                <span style="color: #888888;">//  end added by anton</span>
+                
+                    <span style="color: #008800; font-weight: bold;">while</span> (pollMMA8452QBusy) {
+                        <span style="color: #888888;">//server.log("pollMMA8452QBusy collision")</span>
+                        <span style="color: #888888;">//server.log("hello")</span>
+                        <span style="color: #888888;">// wait herer unitl other instance of int handler is done</span>
+                        <span style="color: #888888;">// FIXME:  I never see this error, probably not neessary, just being paranoid.</span>
+                    }
+                    pollMMA8452QBusy <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">true</span> <span style="color: #888888;">// mark as busy</span>
+                    <span style="color: #008800; font-weight: bold;">if</span> (hardware.pin1.read() <span style="color: #333333;">==</span> <span style="color: #0000dd; font-weight: bold;">1</span>) { <span style="color: #888888;">// only react to low to high edge</span>
+                       <span style="color: #888888;">//server.log("pin1 is 1")</span>
+                <span style="color: #888888;">//FIXME:  do we need to check status for data ready in all xyz?//log(format("STATUS == 0x%02x", readReg(STATUS)), 80)</span>
+                        reg <span style="color: #333333;">=</span> readReg(INT_SOURCE)
+                        server.log(<span style="background-color: #fff0f0;">"reg :"</span><span style="color: #333333;">+</span>reg)
+                        <span style="color: #888888;">//while (reg != 0x00)//hhh </span>
+                        <span style="color: #008800; font-weight: bold;">while</span> (<span style="color: #0000dd; font-weight: bold;">1</span> <span style="color: #333333;">==</span> <span style="color: #0000dd; font-weight: bold;">1</span>) {
+                <span style="color: #888888;">//            server.log(format("INT_SOURCE == 0x%02x", reg))</span>
+                
+                            
+                            
+                            <span style="color: #008800; font-weight: bold;">if</span> (readBit(reg, SRC_DRDY_BIT) <span style="color: #333333;">==</span> <span style="color: #005588; font-weight: bold;">0x1</span>) {
+                                xyz <span style="color: #333333;">=</span> readAccelData() <span style="color: #888888;">// this clears the SRC_DRDY_BIT</span>
+                                
+                                prevSide <span style="color: #333333;">=</span> side
+                                <span style="color: #888888;">//server.log("previsou side: "+ prevSide)</span>
+                                 
+                                <span style="color: #008800; font-weight: bold;">if</span> (xyz[<span style="color: #0000dd; font-weight: bold;">0</span>] <span style="color: #333333;">==</span> <span style="color: #333333;">-</span><span style="color: #0000dd; font-weight: bold;">1000</span>) {
+                                    side <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">4</span> <span style="color: #888888;">//server.log("side 4")</span>
+                                } <span style="color: #008800; font-weight: bold;">else</span> <span style="color: #008800; font-weight: bold;">if</span> (xyz[<span style="color: #0000dd; font-weight: bold;">0</span>] <span style="color: #333333;">&gt;</span> <span style="color: #0000dd; font-weight: bold;">960</span>) {
+                                    side <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">3</span> <span style="color: #888888;">//server.log("side 3")</span>
+                                } <span style="color: #008800; font-weight: bold;">else</span> <span style="color: #008800; font-weight: bold;">if</span> (xyz[<span style="color: #0000dd; font-weight: bold;">1</span>] <span style="color: #333333;">==</span> <span style="color: #333333;">-</span><span style="color: #0000dd; font-weight: bold;">1000</span>) {
+                                    side <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">1</span> <span style="color: #888888;">//server.log("side 5")</span>
+                                } <span style="color: #008800; font-weight: bold;">else</span> <span style="color: #008800; font-weight: bold;">if</span> (xyz[<span style="color: #0000dd; font-weight: bold;">1</span>] <span style="color: #333333;">&gt;</span> <span style="color: #0000dd; font-weight: bold;">960</span>) {
+                                    side <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">2</span> <span style="color: #888888;">//server.log("side 2")</span>
+                                } <span style="color: #008800; font-weight: bold;">else</span> <span style="color: #008800; font-weight: bold;">if</span> (xyz[<span style="color: #0000dd; font-weight: bold;">2</span>] <span style="color: #333333;">==</span> <span style="color: #333333;">-</span><span style="color: #0000dd; font-weight: bold;">1000</span>) {
+                                    side <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">5</span> <span style="color: #888888;">//server.log("side 1")</span>
+                                } <span style="color: #008800; font-weight: bold;">else</span> <span style="color: #008800; font-weight: bold;">if</span> (xyz[<span style="color: #0000dd; font-weight: bold;">2</span>] <span style="color: #333333;">&gt;</span> <span style="color: #0000dd; font-weight: bold;">960</span>) {
+                                    side <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">6</span> <span style="color: #888888;">//server.log("side 6")</span>
+                                } 
+                                
+                                numberSinceChange <span style="color: #333333;">=</span> numberSinceChange <span style="color: #333333;">+</span> <span style="color: #0000dd; font-weight: bold;">1</span>;  
+                                
+                                <span style="color: #008800; font-weight: bold;">if</span> (numberSinceChange <span style="color: #333333;">==</span> <span style="color: #0000dd; font-weight: bold;">50</span>) {
+                                    
+                                    <span style="color: #888888;">// send every 100 checks even if it has not changed</span>
+                                    datapoint <span style="color: #333333;">=</span> {
+                                        <span style="background-color: #fff0f0;">"id"</span> <span style="color: #333333;">:</span> ID,
+                                        <span style="background-color: #fff0f0;">"side"</span> <span style="color: #333333;">:</span> side
+                                        }
+                                    agent.send(<span style="background-color: #fff0f0;">"data"</span>,datapoint);
+                                    
+                                    changeCounter <span style="color: #333333;">=</span> changeCounter <span style="color: #333333;">+</span><span style="color: #0000dd; font-weight: bold;">1</span>;
+                                    server.log(<span style="background-color: #fff0f0;">"changeCounter: "</span> <span style="color: #333333;">+</span> (changeCounter <span style="color: #333333;">*</span> <span style="color: #0000dd; font-weight: bold;">50</span>) );
+                                    numberSinceChange <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">0</span>;
+                                }
+                                
+                                <span style="color: #008800; font-weight: bold;">if</span> (side <span style="color: #333333;">!=</span> prevSide) {
+                                  numberSinceChange <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">0</span>;
+                                  changeCounter <span style="color: #333333;">=</span> <span style="color: #0000dd; font-weight: bold;">0</span>;
+                                  
+                                  server.log(<span style="background-color: #fff0f0;">"side: "</span><span style="color: #333333;">+</span> side)
+                                  server.log(<span style="background-color: #fff0f0;">"numberSinceChange: "</span> <span style="color: #333333;">+</span> numberSinceChange);
+                                  
+                                  yellowLED.write(<span style="color: #0000dd; font-weight: bold;">1</span>);
+                                  
+                                  datapoint <span style="color: #333333;">=</span> {
+                                   <span style="background-color: #fff0f0;">"id"</span> <span style="color: #333333;">:</span> ID,
+                                   <span style="background-color: #fff0f0;">"side"</span> <span style="color: #333333;">:</span> side
+                                   }
+                                  agent.send(<span style="background-color: #fff0f0;">"data"</span>,datapoint);
+                                  
+                                }
+                                
+                                
+                                <span style="color: #888888;">// do something with xyz data here</span>
+                            }
+                            <span style="color: #008800; font-weight: bold;">if</span> (readBit(reg, SRC_FF_MT_BIT) <span style="color: #333333;">==</span> <span style="color: #005588; font-weight: bold;">0x1</span>) {
+                                server.log(<span style="background-color: #fff0f0;">"Interrupt SRC_FF_MT_BIT"</span>)
+                                reg <span style="color: #333333;">=</span> readReg(FF_MT_SRC) <span style="color: #888888;">// this clears SRC_FF_MT_BIT</span>
+                                imp.setpowersave(<span style="color: #008800; font-weight: bold;">false</span>) <span style="color: #888888;">// go to low latency mode because we detected motion</span>
+                            }
+                            <span style="color: #008800; font-weight: bold;">if</span> (readBit(reg, SRC_ASLP_BIT) <span style="color: #333333;">==</span> <span style="color: #005588; font-weight: bold;">0x1</span>) {
+                                reg <span style="color: #333333;">=</span> readReg(SYSMOD) <span style="color: #888888;">// this clears SRC_ASLP_BIT</span>
+                <span style="color: #888888;">//                server.log(format("Entering SYSMOD 0x%02x", reg))</span>
+                            }
+                            reg <span style="color: #333333;">=</span> readReg(INT_SOURCE)
+                            imp.sleep(<span style="color: #6600ee; font-weight: bold;">0.25</span>);  
+                            yellowLED.write(<span style="color: #0000dd; font-weight: bold;">0</span>);
+                        } <span style="color: #888888;">// while (reg != 0x00)</span>
+                    } <span style="color: #008800; font-weight: bold;">else</span> {
+                        server.log(<span style="background-color: #fff0f0;">"INT2 LOW"</span>)
+                    }
+                    pollMMA8452QBusy <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">false</span>; <span style="color: #888888;">// clear so other inst of int handler can run</span>
+                    server.log(<span style="background-color: #fff0f0;">"pollMMA8452Q set to false."</span>);
+                    
+                    <span style="color: #888888;">//greenLED.write(0);</span>
+                    
+                    <span style="color: #888888;">//local timer = imp.wakeup(0.5, pollMMA8452Q(side));  // anton let it sleep a little</span>
+                } <span style="color: #888888;">// pollMMA8452Q</span>
+                
+                
+                <span style="color: #008800; font-weight: bold;">function</span> disconnectHandler(reason) {
+                    <span style="color: #008800; font-weight: bold;">if</span> (reason <span style="color: #333333;">!=</span> SERVER_CONNECTED) {
+                        <span style="color: #888888;">// Server is not connected, so switch on the 'disconnected' LED...</span>
+                        redLED.write(<span style="color: #0000dd; font-weight: bold;">0</span>);
+                        
+                        server.log(<span style="background-color: #fff0f0;">"disconnect_reason: "</span> <span style="color: #333333;">+</span> reason);
+                        <span style="color: #888888;">// ... and attempt to reconnect</span>
+                        <span style="color: #888888;">// Note that we pass in the same callback we use</span>
+                        <span style="color: #888888;">// for unexpected disconnections</span>
+                        server.connect(disconnectHandler, <span style="color: #0000dd; font-weight: bold;">5</span>);
+                        
+                        server.log(<span style="background-color: #fff0f0;">"disconnect_reason repeat: "</span> <span style="color: #333333;">+</span> reason);
+                        <span style="color: #888888;">// Set the state flag so that other parts of the</span>
+                        <span style="color: #888888;">// application know that the device is offline</span>
+                        disconnectedFlag <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">true</span>;
+                    } <span style="color: #008800; font-weight: bold;">else</span> {
+                        <span style="color: #888888;">// Server is connected, so turn the 'disconnected' LED off</span>
+                        <span style="color: #888888;">// and update the state flag</span>
+                        redLED.write(<span style="color: #0000dd; font-weight: bold;">1</span>);
+                        disconnectedFlag <span style="color: #333333;">=</span> <span style="color: #008800; font-weight: bold;">false</span>;
+                    }
+                }
+                    
+                    
+                <span style="color: #888888;">////////////////////////////////////////////////////////</span>
+                <span style="color: #888888;">// first code starts here</span>
+                
+                <span style="color: #888888;">//imp.setpowersave(true) // start in low power mode.</span>
+                imp.setpowersave(<span style="color: #008800; font-weight: bold;">false</span>) <span style="color: #888888;">// start in low power mode. hhh doesn't seem to do anything</span>
+                    <span style="color: #888888;">// Optimized for case where wakeup was caused by periodic timer, not user activity</span>
+                
+                <span style="color: #888888;">// Register with the server</span>
+                <span style="color: #888888;">//imp.configure("MMA8452Q 1D6", [], []) // One 6-sided Die</span>
+                <span style="color: #888888;">// no in and out []s anymore, using Agent messages</span>
+                
+                <span style="color: #888888;">// Send status to know we are alive</span>
+                <span style="color: #888888;">//server.log("BOOTING  " + versionString + " " + hardware.getimpid() + "/" + imp.getmacaddress())</span>
+                server.log(<span style="background-color: #fff0f0;">"BOOTING  "</span> <span style="color: #333333;">+</span> versionString <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" "</span> <span style="color: #333333;">+</span> hardware.getdeviceid() <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">"/"</span> <span style="color: #333333;">+</span> imp.net.info())
+                server.log(<span style="background-color: #fff0f0;">"imp software version : "</span> <span style="color: #333333;">+</span> imp.getsoftwareversion())
+                
+                <span style="color: #888888;">// BUGBUG: below needed until newer firmware!?  See http://forums.electricimp.com/discussion/comment/4875#Comment_2714</span>
+                <span style="color: #888888;">// imp.enableblinkup(true)</span>
+                
+                <span style="color: #888888;">// added by Anton</span>
+                <span style="color: #888888;">//server.setsendtimeoutpolicy(RETURN_ON_ERROR, WAIT_TIL_SENT, 30);</span>
+                
+                server.onunexpecteddisconnect(disconnectHandler);
+                
+                local netData <span style="color: #333333;">=</span> imp.net.info();
+                <span style="color: #008800; font-weight: bold;">if</span> (<span style="background-color: #fff0f0;">"active"</span> <span style="color: #008800; font-weight: bold;">in</span> netData) {
+                    local type <span style="color: #333333;">=</span> netData.<span style="color: #008800; font-weight: bold;">interface</span>[netData.active].type;
+                    
+                    <span style="color: #888888;">// We have an active network connection - what type is it?</span>
+                    <span style="color: #008800; font-weight: bold;">if</span> (type <span style="color: #333333;">==</span> <span style="background-color: #fff0f0;">"cell"</span>) {
+                        <span style="color: #888888;">// The imp is on a cellular connection</span>
+                        local imei <span style="color: #333333;">=</span> netData.<span style="color: #008800; font-weight: bold;">interface</span>[netData.active].imei;
+                        server.log(<span style="background-color: #fff0f0;">"The imp has IMEI "</span> <span style="color: #333333;">+</span> imei <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" and is connected via cellular"</span>);
+                    } <span style="color: #008800; font-weight: bold;">else</span> {
+                        <span style="color: #888888;">// The imp is connected by WiFi or Ethernet</span>
+                        local ip <span style="color: #333333;">=</span> netData.ipv4.address;
+                        local theSSID <span style="color: #333333;">=</span> netData.<span style="color: #008800; font-weight: bold;">interface</span>[netData.active].ssid;
+                        server.log(<span style="background-color: #fff0f0;">"The imp has IP address "</span> <span style="color: #333333;">+</span> ip <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">" and is connected via "</span> <span style="color: #333333;">+</span> type);
+                        server.log(<span style="background-color: #fff0f0;">"The imp has SSID "</span> <span style="color: #333333;">+</span> theSSID);
+                    }
+                    
+                    <span style="color: #008800; font-weight: bold;">if</span> (netData.<span style="color: #008800; font-weight: bold;">interface</span>.len() <span style="color: #333333;">&gt;</span> <span style="color: #0000dd; font-weight: bold;">1</span>) {
+                        <span style="color: #888888;">// The imp has more than one possible network interface</span>
+                        <span style="color: #888888;">// so note the second (disconnected) one</span>
+                        local altType <span style="color: #333333;">=</span> netData.active <span style="color: #333333;">==</span> <span style="color: #0000dd; font-weight: bold;">0</span> <span style="color: #333333;">?</span> netData.<span style="color: #008800; font-weight: bold;">interface</span>[<span style="color: #0000dd; font-weight: bold;">1</span>].type <span style="color: #333333;">:</span> netData.<span style="color: #008800; font-weight: bold;">interface</span>[<span style="color: #0000dd; font-weight: bold;">0</span>].type;
+                        server.log(<span style="background-color: #fff0f0;">"(It can also connect via "</span> <span style="color: #333333;">+</span> altType <span style="color: #333333;">+</span> <span style="background-color: #fff0f0;">")"</span>);
+                    }
+                } <span style="color: #008800; font-weight: bold;">else</span> {
+                    server.log(<span style="background-color: #fff0f0;">"The imp is not connected"</span>);
+                }
+                
+                <span style="color: #888888;">// Configure pin1 for wakeup.  Connect MMA8452Q INT2 pin to imp pin1.</span>
+                hardware.pin1.configure(DIGITAL_IN_WAKEUP, pollMMA8452Q)
+                
+                <span style="color: #888888;">// Configure LED pins</span>
+                redLED    <span style="color: #333333;">&lt;-</span> hardware.pin2;
+                redLED.configure(DIGITAL_OUT, <span style="color: #0000dd; font-weight: bold;">0</span>);
+                redLED.write(<span style="color: #0000dd; font-weight: bold;">1</span>);
+                
+                yellowLED    <span style="color: #333333;">&lt;-</span> hardware.pin5;
+                yellowLED.configure(DIGITAL_OUT, <span style="color: #0000dd; font-weight: bold;">0</span>);
+                yellowLED.write(<span style="color: #0000dd; font-weight: bold;">0</span>);
+                
+                greenLED    <span style="color: #333333;">&lt;-</span> hardware.pin7;
+                greenLED.configure(DIGITAL_OUT, <span style="color: #0000dd; font-weight: bold;">0</span>);
+                greenLED.write(<span style="color: #0000dd; font-weight: bold;">1</span>);
+                
+                <span style="color: #888888;">// set the I2C clock speed. We can do 10 kHz, 50 kHz, 100 kHz, or 400 kHz</span>
+                <span style="color: #888888;">// i2c.configure(CLOCK_SPEED_400_KHZ)</span>
+                i2c.configure(CLOCK_SPEED_100_KHZ) <span style="color: #888888;">// try to fix i2c read errors.  May need 4.7K external pull-up to go to 400_KHZ</span>
+                initMMA8452Q()  <span style="color: #888888;">// sets up code to run on interrupts from MMA8452Q</span>
+                
+                pollMMA8452Q()  <span style="color: #888888;">// call first time to get a value on boot.</span>
+                
+                <span style="color: #888888;">// No more code to execute so we'll sleep until an interrupt from MMA8452Q.</span>
+                <span style="color: #888888;">// Sample functions for using MMA8452Q accelerometer</span>
+                <span style="color: #888888;">// Electric Imp Device Squirrel (.nut) code</span>
+                <span style="color: #888888;">// end of code</span>
+        </pre>
+        </div>
+        <h3>Test your web service</h3>
+        <span style="font-weight: 400;">You can test your web service with a curl
+        command similar to the following: </span>
+        <!-- HTML generated using hilite.me -->
+        <div style="background: #ffffff; overflow: auto; width: auto; border: solid gray; border-width: .1em .1em .1em .8em; padding: .2em .6em;">
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #c65d09; font-weight: bold;">hayden@mac:~/$</span> curl -k -H <span style="background-color: #fff0f0;">"Content-Type:application/json"</span> -X POST -d <span style="background-color: #fff0f0;">'{"deviceID":"[your device id]","side":2}'</span> https://dev.insumlabs.com/webappsdev/hackathon2019/cube/state
+        </pre>
+        </div>
+        <span style="font-weight: 400;">the -k is only there if you do not have a
+        legit TLS certificate.</span>
+        <h2><b>Prepare accelerometer</b></h2>
+        <span style="font-weight: 400;">If you haven’t already, you’ll need to
+        solder headers to your accelerometer, as shown in the following photo:</span>
+        <img class="alignnone size-medium wp-image-14237" src="https://insum.ca/wp-content/uploads/2019/04/soldered-276x300.png" alt="" width="276" height="300" />
+        <h3><b>Connect accelerometer to Imp</b></h3>
+        <span style="font-weight: 400;">You’ll need to connect your accelerometer to
+        your electric imp on your breadboard with the following connections:</span>
+        <img class="alignnone size-medium wp-image-14238" src="https://insum.ca/wp-content/uploads/2019/04/schematic2-300x153.png" alt="" width="300" height="153" /><img class="alignnone size-medium wp-image-14239" src="https://insum.ca/wp-content/uploads/2019/04/setup2-276x300.png" alt="" width="276" height="300" />
+        
+        &nbsp;
+        <table>
+        <tbody>
+        <tr>
+        <th>Component</th>
+        <th>Accelerometer</th>
+        <th>Imp</th>
+        </tr>
+        <tr>
+        <td>Black jumper</td>
+        <td>Ground</td>
+        <td>Ground</td>
+        </tr>
+        <tr>
+        <td>Orange jumper</td>
+        <td>I2</td>
+        <td>Pin1</td>
+        </tr>
+        <tr>
+        <td>Blue jumper</td>
+        <td>SCL</td>
+        <td>Pin8</td>
+        </tr>
+        <tr>
+        <td>Green jumper</td>
+        <td>SDA</td>
+        <td>Pin9</td>
+        </tr>
+        <tr>
+        <td>Red jumper</td>
+        <td>3.3V</td>
+        <td>3V3</td>
+        </tr>
+        </tbody>
+        </table>
+        <h2><b>Put it in a box</b></h2>
+        <span style="font-weight: 400;">If you peel off the backing of the breadboard, you’ll find it will stick solidly to any surface (be careful). </span>
+        
+        <span style="font-weight: 400;">We used an empty kleenex box as you saw in our video:</span>
+        
+        <img class="alignnone size-medium wp-image-14241" src="https://insum.ca/wp-content/uploads/2019/04/box_insides-300x194.png" alt="" width="300" height="194" /><img class="alignnone size-medium wp-image-14219" src="https://insum.ca/wp-content/uploads/2019/04/thecube-254x300.png" alt="" width="254" height="300" />
+        <h2><b>Last step  - create a rest service</b></h2>
+        <span style="font-weight: 400;">It may be slightly out-of-scope for this tutorial to instruct you on how to connect your Electric Imp to your database, but, in case it’s helpful,  I will describe how we created a RESTful service using our Oracle 18c Database.</span>
+        
+        <span style="font-weight: 400;">After REST-enabling our schema, we created a module ‘cube’:</span>
+        
+        <img class="alignnone size-medium wp-image-14243" src="https://insum.ca/wp-content/uploads/2019/04/module-294x300.png" alt="" width="294" height="300" />
+        
+        <span style="font-weight: 400;">We gave our module a template we called ‘state’:</span>
+        
+        <img class="alignnone size-medium wp-image-14244" src="https://insum.ca/wp-content/uploads/2019/04/template-300x298.png" alt="" width="300" height="298" />
+        
+        This template was then finally give a POST method to accept the Electric Imp data into our procedure:
+        <!-- HTML generated using hilite.me -->
+        <div style="background: #ffffff; overflow: auto; width: auto; border: solid gray; border-width: .1em .1em .1em .8em; padding: .2em .6em;">
+        <pre style="margin: 0; line-height: 125%;"><span style="color: #008800; font-weight: bold;">begin</span>
+          cube_utils<span style="color: #6600ee; font-weight: bold;">.</span>rotate(p_id   <span style="color: #333333;">=&gt;</span> <span style="color: #996633;">:deviceID</span>,
+                            p_side <span style="color: #333333;">=&gt;</span> <span style="color: #996633;">:side</span>);
+        <span style="color: #008800; font-weight: bold;">end</span>;
+        </pre>
+        </div>
+        To review, we generated the following hierarchy of database objects:
+        
+        <img class="alignnone size-full wp-image-14242" src="https://insum.ca/wp-content/uploads/2019/04/rest_objects.png" alt="" width="266" height="209" />
+        <h2><b>Thanks and acknowledgements</b></h2>
+        <span style="font-weight: 400;">Thanks to Christine Nielsen for many of the photographs. Much of this blog post is a wholesale ripoff of Anton Nielsen’s </span><a href="https://concept2completion.com/apex/f?p=172172:iot" target="_blank"><span style="font-weight: 400;">earlier post</span></a>
+        
+        <img class="alignnone size-medium wp-image-14219" src="https://insum.ca/wp-content/uploads/2019/04/thecube-254x300.png" alt="" width="254" height="300" />
+        
+        </div>
